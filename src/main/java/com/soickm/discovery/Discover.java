@@ -6,34 +6,29 @@
 package com.soickm.discovery;
 
 import com.soickm.command.process.ps_aux_awk;
-import com.soickm.commands.file.mkdir;
 import com.soickm.commands.network.netstat_tpan_awk;
 import com.soickm.exception.ConnectionException;
 import com.soickm.remote.RemoteConnection;
-import com.soickm.remote.RemoteCopy;
 import com.soickm.remote.SSH;
 import com.soickm.util.IPIterator;
-import com.soickm.remote.SCP;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
+
+import org.apache.commons.cli.*;
 
 /**
  *
  * @author pedro.pacheco
  */
-public class Main {
+public class Discover {
 
-    private static final Logger LOG = Logger.getLogger(Main.class.getName());
+    private static final Logger LOG = Logger.getLogger(Discover.class.getName());
     private static final Session SESSION = new Session();
 
-    public static void main(String[] args) throws Exception {
+    public static void start(String[] args) throws Exception {
 
         LOG.log(Level.INFO, "------ Begin ----------");
         parseParameter(args);
@@ -60,7 +55,7 @@ public class Main {
                 //ssh.execute(new netstat_tpan_awk()).persistResultsTo(LOG);
                 //ssh.persistRemoteConnection(com.soickm.persistance.DocumentStorage.getInstance(), "Discovery", "Connections", true);
             } catch (Exception ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Error while trying to connect to host " + ip.getCanonicalHostName(), ex);
+                Logger.getLogger(Discover.class.getName()).log(Level.SEVERE, "Error while trying to connect to host " + ip.getCanonicalHostName(), ex);
                 //ssh.persistRemoteConnection(com.soickm.persistance.DocumentStorage.getInstance(), "Discovery", "Connections", false);
             } finally {
                 if (ssh != null) {
